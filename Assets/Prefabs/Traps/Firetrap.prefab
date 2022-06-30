@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 415853318548575934}
   m_Layer: 8
   m_Name: Firetrap
-  m_TagString: Enemy
+  m_TagString: Traps
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,9 +72,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2084729991
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayerID: -1953591877
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 84b0d89aa2c8bfb4c8c1d378fa972fbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -126,7 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   delay: 0.5
-  onTime: 3
+  onTime: 2
+  fireClip: {fileID: 8300000, guid: 9a0331c6f7557be428bdf55bda139336, type: 3}
 --- !u!95 &415853318548575934
 Animator:
   serializedVersion: 3

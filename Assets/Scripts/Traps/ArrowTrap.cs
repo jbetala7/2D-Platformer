@@ -7,12 +7,16 @@ public class ArrowTrap : MonoBehaviour
     [SerializeField] private GameObject[] arrows;
     private float timer;
 
+    [Header("Sound")]
+    [SerializeField] private AudioClip arrowClip;
+
     private void Shoot()
     {
         timer = 0;
 
+        SoundSystem.instance.Play(arrowClip);
         arrows[Arrow()].transform.position = firePoint.position;
-        arrows[Arrow()].GetComponent<ShootArrows>().StartShooting();
+        arrows[Arrow()].GetComponent<Shoot>().StartShooting();
     }
 
     private int Arrow()

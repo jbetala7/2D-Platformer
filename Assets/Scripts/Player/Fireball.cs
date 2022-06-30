@@ -6,6 +6,7 @@ public class Fireball : MonoBehaviour
     private bool hit;
     private float direction;
     private float lifetime;
+
     private Animator animator;
     private BoxCollider2D boxCollider;
 
@@ -29,6 +30,9 @@ public class Fireball : MonoBehaviour
         hit = true;
         boxCollider.enabled = false;
         animator.SetTrigger("explode");
+
+        if (collision.tag == "Enemy")
+            collision.GetComponent<Health>().Damage(1);
     }
 
     public void SetDirection(float fdirection)

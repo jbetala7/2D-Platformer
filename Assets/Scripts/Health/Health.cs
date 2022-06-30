@@ -3,16 +3,23 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [Header ("Heahlt")]
+    [Header ("Health")]
     [SerializeField] private float initialHealth;
     public float health { get; private set; }
     private Animator animator;
     private bool dead;
+    private bool immune;
 
     [Header ("iFrames")]
     [SerializeField] private float immunePeriod;
     [SerializeField] private int playerBlinks;
     private SpriteRenderer spriteRenderer;
+
+    [Header("Sound")]
+    [SerializeField] private AudioClip deathClip;
+    [SerializeField] private AudioClip hurtClip;
+
+    [SerializeField] private Behaviour[] components;
 
     private void Awake()
     {
@@ -23,6 +30,7 @@ public class Health : MonoBehaviour
 
     public void Damage(float _damage)
     {
+        if (immune) return;
         health = Mathf.Clamp(health - _damage, 0, initialHealth);
         
         if(health > 0)
@@ -33,15 +41,20 @@ public class Health : MonoBehaviour
             //iframes
             StartCoroutine(Immune());
 
+            SoundSystem.instance.Play(hurtClip);
+
         }
         else
         {
             if(!dead)
             {
-                //dead
-                animator.SetTrigger("dead");
-                GetComponent<PlayerMovement>().enabled = false;
+                animator.SetTrigger("die");
+
+                foreach(Behaviour component in components)
+                    component.enabled = false;
+
                 dead = true;
+                SoundSystem.instance.Play(deathClip);
             }
         }
     }
@@ -53,6 +66,8 @@ public class Health : MonoBehaviour
 
     private IEnumerator Immune()
     {
+
+        immune = true; 
         Physics2D.IgnoreLayerCollision(7, 8, true);
 
         //immune period
@@ -65,6 +80,11 @@ public class Health : MonoBehaviour
         }
 
         Physics2D.IgnoreLayerCollision(7, 8, false);
+        immune = false;
     }
 
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
 }

@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Camera",
+    "\\Enemy",
+    "\\Health",
+    "\\Level",
+    "\\Player",
+    "\\Traps"
+  ],
+  "SelectedNode": "\\Traps\\TrapDamage.cs",
+  "PreviewInSolutionExplorer": false
+}

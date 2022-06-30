@@ -11,6 +11,9 @@ public class SpikeHead : TrapDamage
     private bool inAction;
     private Vector3[] directions = new Vector3[4];
 
+    [Header("Sound")]
+    [SerializeField] private AudioClip impactClip;
+
     private void OnEnable()
     {
         Stop();    
@@ -63,6 +66,7 @@ public class SpikeHead : TrapDamage
 
     private new void OnTriggerEnter2D(Collider2D collision)
     {
+        SoundSystem.instance.Play(impactClip);
         base.OnTriggerEnter2D(collision);
         Stop();//stop attacking after one hit
     }

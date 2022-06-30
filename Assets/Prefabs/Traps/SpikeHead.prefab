@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4510985901269659125}
   - component: {fileID: 4510985901269659126}
   - component: {fileID: 4510985901269659018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpikeHead
-  m_TagString: Untagged
+  m_TagString: Traps
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,3 +152,4 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  impactClip: {fileID: 8300000, guid: 3e018f7df9c4707459dfef9131f6cbb8, type: 3}
