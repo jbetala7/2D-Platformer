@@ -48,10 +48,12 @@ public class Health : MonoBehaviour
         {
             if(!dead)
             {
-                animator.SetTrigger("die");
-
+                //deactivate all the attached components
                 foreach(Behaviour component in components)
                     component.enabled = false;
+
+                animator.SetBool("grounded", true);
+                animator.SetTrigger("die");
 
                 dead = true;
                 SoundSystem.instance.Play(deathClip);
@@ -62,6 +64,20 @@ public class Health : MonoBehaviour
     public void Life(float _value)
     {
         health = Mathf.Clamp(health + _value, 0, initialHealth);
+    }
+
+    public void Respawn()
+    {
+        dead = false;
+
+        Life(initialHealth);
+        animator.ResetTrigger("die");
+        animator.Play("idle");
+        StartCoroutine(Immune());
+
+        //activate all the attached components
+        foreach (Behaviour component in components)
+            component.enabled = true;
     }
 
     private IEnumerator Immune()

@@ -4,12 +4,24 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
+
+    [Header("In Air")]
+    [SerializeField] private float duration; //amount of time player can stay in the air before making the next jump
+    private float timer; //time passed since the player moved from the edge off a game object
+
+    [Header("Multitple Jumps")]
+    [SerializeField] private int jumps;
+    private int jumpCounter;
+
+    [Header("Wall Jumps")]
+    [SerializeField] private float wallJumpX;
+    [SerializeField] private float wallJumpY;
+
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     private Rigidbody2D player;
     private Animator animator;
     private BoxCollider2D boxCollider;
-    private float wallJumpCooldown;
     private float horizontal;
 
     [Header("Sound")]
@@ -38,58 +50,70 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("run", horizontal != 0);
         animator.SetBool("grounded", isGrounded());
 
-        //logic for wall jump
-        if(wallJumpCooldown > 0.2f)
+        //jump
+        if (Input.GetKeyDown(KeyCode.Space))
+            Jump();
+
+        //jump height
+        if(Input.GetKeyUp(KeyCode.Space) && player.velocity.y > 0)
+            player.velocity = new Vector2(player.velocity.x, player.velocity.y / 2);
+
+        if(onWall())
         {
-            player.velocity = new Vector2(horizontal * speed, player.velocity.y);
-
-            if(onWall() && !isGrounded())
-            {
-                player.gravityScale = 0;
-                player.velocity = Vector2.zero;
-            }
-            else
-                player.gravityScale = 3;
-
-            if (Input.GetKey(KeyCode.Space))
-            {
-                Jump();
-
-                if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
-                {
-                    SoundSystem.instance.Play(jumpClip);
-                }
-            }
+            player.gravityScale = 0;
+            player.velocity = Vector2.zero;
         }
         else
         {
-            wallJumpCooldown += Time.deltaTime;
+            player.gravityScale = 7;
+            player.velocity = new Vector2(horizontal * speed, player.velocity.y);
+
+            if (isGrounded())
+            {
+                timer = duration; //reset when player lands on ground
+                jumpCounter = jumps;
+            }
+            else
+                timer -= Time.deltaTime; //reduce timer when player is not on the ground
         }
 
     }
 
     private void Jump()
     {
-        if (isGrounded())
-        {
-            SoundSystem.instance.Play(jumpClip);
+        if (timer < 0 && !onWall() && jumpCounter <=0 ) return; 
+        //if counter is 0 and if no jumps are left then do nothing
 
-            player.velocity = new Vector2(player.velocity.x, jumpPower);
-            animator.SetTrigger("jump");
-        }
-        else if(onWall() && !isGrounded())
+        SoundSystem.instance.Play(jumpClip);
+
+        if (onWall())
+            WallJump();
+        else
         {
-            if(horizontal == 0)
-            {
-                player.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
-                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
+            if (isGrounded())
+                player.velocity = new Vector2(player.velocity.x, jumpPower);
             else
-                player.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 5);
+            {
+                //perform a normal jump if player is not on the ground and timer is bigger than 0
+                if (timer > 0)
+                    player.velocity = new Vector2(player.velocity.x, jumpPower);
+                else
+                {
+                    if(jumpCounter > 0) //jump if more jumps are left and then reduce the counter
+                    {
+                        player.velocity = new Vector2(player.velocity.x, jumpPower);
+                        jumpCounter--;
+                    }
+                }
+            }
 
-            wallJumpCooldown = 0;
+            timer = 0;
         }
+    }
 
+    private void WallJump()
+    {
+        player.AddForce(new Vector2(-Mathf.Sign(transform.localScale.x) * wallJumpX, wallJumpY));
     }
 
     private bool isGrounded()

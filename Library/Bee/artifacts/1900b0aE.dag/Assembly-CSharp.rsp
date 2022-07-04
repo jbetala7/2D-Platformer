@@ -356,6 +356,7 @@
 "Assets/Scripts/Player/Fireball.cs"
 "Assets/Scripts/Player/PlayerAttack.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
+"Assets/Scripts/Player/Respawn.cs"
 "Assets/Scripts/Sound/SoundSystem.cs"
 "Assets/Scripts/Traps/ArrowTrap.cs"
 "Assets/Scripts/Traps/FireTrap.cs"

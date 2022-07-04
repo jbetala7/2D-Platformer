@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2477828454939104969}
   - component: {fileID: 2477828454939104968}
   - component: {fileID: 2477828454939104970}
+  - component: {fileID: 3531461898765037936}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -150,13 +151,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  jumpPower: 15
+  jumpPower: 12
+  duration: 0.3
+  jumps: 1
+  wallJumpX: 0
+  wallJumpY: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  jumpClip: {fileID: 8300000, guid: e7283f5a6e0422544b5f02839fcfdd21, type: 3}
 --- !u!114 &2477828454939104969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +228,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3531461898765037936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2477828454939104960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728075415c60b3c44b8e602a046c3e3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpointClip: {fileID: 8300000, guid: cfdad8a187e584c4bbdb34eb5ae2a237, type: 3}
 --- !u!1 &2477828456714407102
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,6 @@ public class SoundSystem : MonoBehaviour
         //destroy duplicate objects
         else if (instance != null && instance != this)
             Destroy(gameObject);
-        
     }
 
     public void Play(AudioClip _sound)
