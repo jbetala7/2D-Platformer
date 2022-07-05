@@ -1,16 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
-    [Header ("Health")]
+    [Header("Health")]
     [SerializeField] private float initialHealth;
     public float health { get; private set; }
     private Animator animator;
     private bool dead;
     private bool immune;
 
-    [Header ("iFrames")]
+    [Header("iFrames")]
     [SerializeField] private float immunePeriod;
     [SerializeField] private int playerBlinks;
     private SpriteRenderer spriteRenderer;
@@ -32,8 +33,8 @@ public class Health : MonoBehaviour
     {
         if (immune) return;
         health = Mathf.Clamp(health - _damage, 0, initialHealth);
-        
-        if(health > 0)
+
+        if (health > 0)
         {
             //hurt
             animator.SetTrigger("hurt");
@@ -46,29 +47,41 @@ public class Health : MonoBehaviour
         }
         else
         {
-            if(!dead)
-            {
-                //deactivate all the attached components
-                foreach(Behaviour component in components)
-                    component.enabled = false;
+            Death();
+        }
+    }
+    public void Death()
+    {
+        if (!dead)
+        {
+            //deactivate all the attached components
+            foreach (Behaviour component in components)
+                component.enabled = false;
 
-                animator.SetBool("grounded", true);
-                animator.SetTrigger("die");
+            animator.SetBool("grounded", true);
+            animator.SetTrigger("die");
 
-                dead = true;
-                SoundSystem.instance.Play(deathClip);
-            }
+            dead = true;
+            SoundSystem.instance.Play(deathClip);
+
+            if (Respawn.Instance.timesToRespawn <= 0) { Invoke("ReloadScene", 1f); }
+
         }
     }
 
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public void Life(float _value)
     {
         health = Mathf.Clamp(health + _value, 0, initialHealth);
     }
 
-    public void Respawn()
+    public void RespawnPlayer()
     {
         dead = false;
+        Respawn.Instance.timesToRespawn--;
 
         Life(initialHealth);
         animator.ResetTrigger("die");
@@ -83,11 +96,11 @@ public class Health : MonoBehaviour
     private IEnumerator Immune()
     {
 
-        immune = true; 
+        immune = true;
         Physics2D.IgnoreLayerCollision(7, 8, true);
 
         //immune period
-        for(int i = 0; i < playerBlinks; i++)
+        for (int i = 0; i < playerBlinks; i++)
         {
             spriteRenderer.color = new Color(1, 0, 0, 0.7f);
             yield return new WaitForSeconds(immunePeriod / (playerBlinks * 4));
