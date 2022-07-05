@@ -361,6 +361,7 @@
 "Assets/Scripts/Traps/ArrowTrap.cs"
 "Assets/Scripts/Traps/FireTrap.cs"
 "Assets/Scripts/Traps/MoveSideways.cs"
+"Assets/Scripts/Traps/MovingPlatform.cs"
 "Assets/Scripts/Traps/Shoot.cs"
 "Assets/Scripts/Traps/SpikeHead.cs"
 "Assets/Scripts/Traps/TrapDamage.cs"
