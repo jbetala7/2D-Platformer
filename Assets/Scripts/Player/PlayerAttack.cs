@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;

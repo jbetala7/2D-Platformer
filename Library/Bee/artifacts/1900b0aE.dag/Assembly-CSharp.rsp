@@ -365,6 +365,7 @@
 "Assets/Scripts/Traps/Shoot.cs"
 "Assets/Scripts/Traps/SpikeHead.cs"
 "Assets/Scripts/Traps/TrapDamage.cs"
+"Assets/Scripts/Tutorial.cs"
 -langversion:8.0
 
 /deterministic

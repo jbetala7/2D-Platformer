@@ -9,6 +9,7 @@ TagManager:
   - Traps
   - Checkpoint
   - Fireball
+  - Tutorial
   layers:
   - Default
   - TransparentFX
