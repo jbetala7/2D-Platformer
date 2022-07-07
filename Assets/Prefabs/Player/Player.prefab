@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 2477828454939104973}
   - component: {fileID: 2477828454939104975}
   - component: {fileID: 2477828454939104974}
+  - component: {fileID: 2477828454939104968}
   - component: {fileID: 2477828454939104971}
   - component: {fileID: 2477828454939104969}
-  - component: {fileID: 2477828454939104968}
-  - component: {fileID: 2477828454939104970}
   - component: {fileID: 3531461898765037936}
+  - component: {fileID: 2477828454939104970}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -138,6 +138,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2477828454939104968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2477828454939104960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdc315fb9d0ad441803a9df7f49b5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 4
+  immunePeriod: 2
+  playerBlinks: 1
+  deathClip: {fileID: 8300000, guid: 67157eda048932d4583fb60b69382ad2, type: 3}
+  hurtClip: {fileID: 8300000, guid: 1ff9054006ee404469257c215ffe4fba, type: 3}
+  components:
+  - {fileID: 2477828454939104971}
+  - {fileID: 2477828454939104969}
 --- !u!114 &2477828454939104971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,19 +197,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 0.25
   firePoint: {fileID: 2477828456714407101}
-  fireballs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  fireballs: {fileID: 0}
   fireballClip: {fileID: 8300000, guid: 8845fa373a314aa4d975dd40e79e7d68, type: 3}
---- !u!114 &2477828454939104968
+  fireballCountText: {fileID: 0}
+  initialFireballs: 3
+  fireballValue: 2
+--- !u!114 &3531461898765037936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,17 +211,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2477828454939104960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccdc315fb9d0ad441803a9df7f49b5ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 728075415c60b3c44b8e602a046c3e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 4
-  immunePeriod: 2
-  playerBlinks: 1
-  deathClip: {fileID: 8300000, guid: 67157eda048932d4583fb60b69382ad2, type: 3}
-  hurtClip: {fileID: 8300000, guid: 1ff9054006ee404469257c215ffe4fba, type: 3}
-  components:
-  - {fileID: 2477828454939104971}
-  - {fileID: 2477828454939104969}
+  checkpointClip: {fileID: 8300000, guid: cfdad8a187e584c4bbdb34eb5ae2a237, type: 3}
+  currentCheckpoint: {fileID: 0}
+  timesToRespawn: 1
 --- !u!95 &2477828454939104970
 Animator:
   serializedVersion: 3
@@ -228,19 +236,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3531461898765037936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2477828454939104960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 728075415c60b3c44b8e602a046c3e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkpointClip: {fileID: 8300000, guid: cfdad8a187e584c4bbdb34eb5ae2a237, type: 3}
 --- !u!1 &2477828456714407102
 GameObject:
   m_ObjectHideFlags: 0
